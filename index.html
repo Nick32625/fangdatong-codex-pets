@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>方小同 · 四款桌宠</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f6f2e9;color:#322e29;font:15px/1.7 -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}main{max-width:1120px;margin:auto;padding:48px 24px}h1{font-size:32px;line-height:1.25;margin:8px 0 16px}h2{font-size:17px;margin:12px 0 4px}.eyebrow{font-size:12px;letter-spacing:.18em;color:#777269}.intro{max-width:650px;color:#736b60}.controls{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:28px 0 20px}button,select{font:inherit;border:1px solid #d5ccbe;background:#fffcf5;border-radius:10px;padding:8px 12px;color:inherit;cursor:pointer}button:hover{background:#eae2d5}label{display:flex;align-items:center;gap:8px}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.card{background:#fffcf5;border:1px solid #dfd6c9;border-radius:18px;padding:20px 14px;text-align:center}.stage{height:250px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#eee8de}.stage.dark{background:#24272b}canvas{max-width:100%;object-fit:contain}.note{font-size:12px;color:#7b746c;min-height:3.4em}.status{font-size:12px;color:#847967}.install{margin-top:32px;border-top:1px solid #d9d0c3;padding-top:20px;max-width:780px}.install p{margin:8px 0;color:#6d655d}a{color:#355c72}footer{margin-top:32px;color:#8d8378;font-size:12px}@media(max-width:850px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:480px){main{padding:28px 16px}.grid{grid-template-columns:1fr}h1{font-size:28px}}
+</style>
+<main>
+<div class="eyebrow">MUSIC, IN GOOD COMPANY</div>
+<h1>方小同 · 四款桌宠</h1>
+<p class="intro">西装、格子衬衫、蓝帽工装，还有安静盘腿弹琴的农人。沿用确认过的手绘造型，用轻轻的动作陪你工作。</p>
+<div class="controls">
+<label>动作 <select id="state"><option value="0">待机 · 呼吸与眨眼</option><option value="1">向右移动</option><option value="2">向左移动</option><option value="3">招手</option><option value="4">轻轻跳一下</option><option value="5">遇到小挫折</option><option value="6">等你回应</option><option value="7">认真演奏</option><option value="8">专注听一听</option><option value="9">环顾四周</option></select></label>
+<button id="play" type="button">暂停</button><button id="next" type="button">下一帧</button><button id="theme" type="button">深色背景</button>
+<label>大小 <select id="size"><option value="112">小</option><option value="160" selected>中</option><option value="192">大</option></select></label>
+</div>
+<section class="grid" id="pets" aria-label="四款桌宠动画"></section>
+<p class="status" id="status" aria-live="polite"></p>
+<section class="install"><h2>装进你的 Codex</h2><p>在这个文件夹中双击「安装到Codex.command」，然后打开 Codex 的桌宠设置，点「刷新」，就可以选择四款方小同。已安装的其他桌宠会保留。</p><p>分享时请把整个文件夹一起发送。这个预览页不需要联网，所有图片都在文件夹内。</p></section>
+<footer>方大同同人桌宠 · 手绘人物与动作设计 · 本地离线预览</footer>
+</main>
+<script>
+const definitions=[['khalil-suit-handdrawn','西装电吉他','三件套与电吉他，安静又有节奏。'],['khalil-15live-handdrawn','15 Live 递麦','格子衬衫，递出麦克风等你回应。'],['khalil-blue-handdrawn','蓝帽木吉他','工装、短帽和木吉他，轻轻拨弦。'],['khalil-farmer-handdrawn','农人盘腿','盘腿坐着，小幅摇晃，慢慢弹琴。']];
+const timings=[[280,110,110,140,140,320],[120,120,120,120,120,120,120,220],[120,120,120,120,120,120,120,220],[140,140,140,280],[140,140,140,140,280],[140,140,140,140,140,140,140,240],[150,150,150,150,150,260],[120,120,120,120,120,220],[150,150,150,150,150,280],Array(16).fill(240)];
+let state=0,frame=0,playing=true,timer=null,loaded=0;
+const pets=definitions.map(([id,name,note])=>{const card=document.createElement('article');card.className='card';card.innerHTML='<div class="stage"><canvas width="192" height="208" aria-label="'+name+'动画"></canvas></div><h2>'+name+'</h2><p class="note">'+note+'</p>';document.querySelector('#pets').append(card);const canvas=card.querySelector('canvas'),image=new Image();image.onload=()=>{loaded++;draw()};image.onerror=()=>{document.querySelector('#status').textContent='图片尚未完整，请保留整个安装包的文件夹结构。'};image.src=id+'/spritesheet.webp';return {canvas,image}});
+function draw(){const row=state===9?9+Math.floor(frame/8):state,col=state===9?frame%8:frame;for(const pet of pets){const ctx=pet.canvas.getContext('2d');ctx.clearRect(0,0,192,208);if(pet.image.complete&&pet.image.naturalWidth)ctx.drawImage(pet.image,col*192,row*208,192,208,0,0,192,208)}if(loaded===4)document.querySelector('#status').textContent='第 '+(frame+1)+' / '+timings[state].length+' 帧'+(state===9?' · 注视角度 '+(frame*22.5)+'°':'')}
+function schedule(){clearTimeout(timer);if(playing)timer=setTimeout(()=>{frame=(frame+1)%timings[state].length;draw();schedule()},timings[state][frame])}
+document.querySelector('#state').onchange=e=>{state=Number(e.target.value);frame=0;draw();schedule()};
+document.querySelector('#play').onclick=()=>{playing=!playing;document.querySelector('#play').textContent=playing?'暂停':'播放';schedule()};
+document.querySelector('#next').onclick=()=>{playing=false;document.querySelector('#play').textContent='播放';clearTimeout(timer);frame=(frame+1)%timings[state].length;draw()};
+document.querySelector('#theme').onclick=()=>{const dark=!document.querySelector('.stage').classList.contains('dark');document.querySelectorAll('.stage').forEach(x=>x.classList.toggle('dark',dark));document.querySelector('#theme').textContent=dark?'浅色背景':'深色背景'};
+function resize(){const width=Number(document.querySelector('#size').value);pets.forEach(({canvas})=>{canvas.style.width=width+'px';canvas.style.height=(width*208/192)+'px'})}
+document.querySelector('#size').onchange=resize;resize();schedule();
+</script>
+</html>

@@ -1,0 +1,69 @@
+{
+  "created_at": "2026-09-29T03:27:30.128603+00:00",
+  "pets": [
+    {
+      "id": "khalil-suit-handdrawn",
+      "displayName": "方小同 · 西装电吉他",
+      "spriteVersionNumber": 2,
+      "dimensions": [
+        1536,
+        2288
+      ],
+      "standard_states": 9,
+      "gaze_directions": 16,
+      "visual_qa": "pass",
+      "blind_cardinals": "pass",
+      "warning_note": "少量接近水平或垂直的中间视线幅度较小，已逐帧复核连续性。"
+    },
+    {
+      "id": "khalil-15live-handdrawn",
+      "displayName": "方小同 · 15 Live 递麦",
+      "spriteVersionNumber": 2,
+      "dimensions": [
+        1536,
+        2288
+      ],
+      "standard_states": 9,
+      "gaze_directions": 16,
+      "visual_qa": "pass",
+      "blind_cardinals": "pass",
+      "warning_note": "少量接近水平或垂直的中间视线幅度较小，已逐帧复核连续性。"
+    },
+    {
+      "id": "khalil-blue-handdrawn",
+      "displayName": "方小同 · 蓝帽木吉他",
+      "spriteVersionNumber": 2,
+      "dimensions": [
+        1536,
+        2288
+      ],
+      "standard_states": 9,
+      "gaze_directions": 16,
+      "visual_qa": "pass",
+      "blind_cardinals": "pass",
+      "warning_note": "少量接近水平或垂直的中间视线幅度较小，已逐帧复核连续性。"
+    },
+    {
+      "id": "khalil-farmer-handdrawn",
+      "displayName": "方小同 · 农人盘腿",
+      "spriteVersionNumber": 2,
+      "dimensions": [
+        1536,
+        2288
+      ],
+      "standard_states": 9,
+      "gaze_directions": 16,
+      "visual_qa": "pass",
+      "blind_cardinals": "pass",
+      "warning_note": "少量接近水平或垂直的中间视线幅度较小，已逐帧复核连续性。"
+    }
+  ],
+  "public_release": {
+    "version": "1.0.0",
+    "validated_on": "2026-10-08",
+    "installer_tests_passed": 6,
+    "sprite_data_unchanged": true,
+    "format_check": "pass",
+    "host_ui_note": "需在支持本地自定义v2桌宠的Codex中刷新并选择；本次发布检查未重新进行宿主界面自动化。"
+  }
+}
